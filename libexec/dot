@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+set -e
+
+abort() {
+  {
+    if [ "$#" -eq 0 ]; then cat -
+    else echo "dot: $*"
+    fi
+  } >&2
+  exit 1
+}
+
+abs_dirname() {
+  local path
+  path="$(realpath "$1")"
+  echo "${path%/*}"
+}
+
+bin_path="$(abs_dirname "$0")"
+export PATH="${bin_path}:$PATH"
+
+DOT_ARCH="linux"
+export DOT_ARCH
+
+DOT_FILES_ROOT="${DOT_FILES_ROOT:-$HOME/.dotfiles}"
+export DOT_FILES_ROOT
+
+command="$1"
+case "$command" in
+"")
+  exec dot-sync
+  ;;
+-h|--help)
+  exec dot-help
+  ;;
+-v|--version)
+  exec dot-version
+  ;;
+* )
+  command_path="$(command -v "dot-${command}" || true)"
+  if [ -z "$command_path" ]; then
+    abort "no such command '$command'"
+  fi
+  shift 1
+  exec "$command_path" "$@"
+  ;;
+esac

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e
+
+version="0.1.0"
+
+echo "dot ${version}"

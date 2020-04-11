@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+cat <<EOF
+$(dot-version)
+
+Usage:
+    dot [FLAGS] [OPTIONS]
+
+FLAGS:
+    -v, --verbose           Enable verbose output
+    -q, --quiet             Disable progress output
+    -y                      Disable confirmation prompt.
+        --no-modify-path    Don't configure the PATH environment variable
+    -h, --help              Prints help information
+    -V, --version           Prints version information
+
+OPTIONS:
+        --default-host <default-host>              Choose a default host triple
+        --default-toolchain <default-toolchain>    Choose a default toolchain to install
+        --default-toolchain none                   Do not install any toolchains
+        --profile [minimal|default|complete]       Choose a profile
+    -c, --component <components>...                Component name to also install
+    -t, --target <targets>...                      Target name to also install
+EOF
